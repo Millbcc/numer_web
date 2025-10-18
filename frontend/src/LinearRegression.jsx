@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LineChart,Line,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts'
 import axios from 'axios'
-function App() {
+function LinearRegression() {
   const [data,setData] = useState([])
   const [size,setSize] = useState("")
   const [a1,setA1] = useState("");
@@ -49,14 +49,19 @@ function App() {
   }
   function handleApi() {
     axios.get("http://localhost:3000/api/data")
-    .then((res)=>{
-      setData(res.data)
-      setSize(res.data.length)
-    })
-    .catch((err)=>{
-      console.error(err);
-    })
+      .then((res) => {
+        const filtered = res.data.filter(item => item.solution === 'lr');
+        
+        setData(filtered);
+        setSize(filtered.length);
+
+        console.log("Filtered data:", filtered);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
   }
+
 
   function regression(data,size) {
     size = parseFloat(size);
@@ -173,4 +178,4 @@ function App() {
   )
 }
 
-export default App
+export default LinearRegression

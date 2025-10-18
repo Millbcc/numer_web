@@ -41,16 +41,20 @@ function Bisection() {
     function handleApi() {
         axios.get("http://localhost:3000/api/data")
             .then((res) => {
-                setEquation(res.data[0].equation)
-                setXl(res.data[0].xl)
-                setXr(res.data[0].xr)
-                setEpsilon(res.data[0].epsilon)
-                
+            res.data.forEach((item) => {
+                if (item.solution === 'bs') {
+                console.log(item);
+                setEquation(item.equation);
+                setXl(item.xl);
+                setXr(item.xr);
+                setEpsilon(item.epsilon);
+                }
+            });
             })
             .catch((err) => {
-                console.error(err);
-            })
-  }
+            console.error(err);
+        });
+    }
     return(
         <div>
             <input

@@ -18,7 +18,7 @@ db.connect(()=>{
 })
 
 app.get("/api/data",(req,res)=>{
-    db.query("SELECT * FROM bisection",(err,item)=>{
+    db.query("SELECT * FROM data_points",(err,item)=>{
         if(err) console.error(err);
         res.json(item)
     })
