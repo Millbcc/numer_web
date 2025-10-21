@@ -48,7 +48,7 @@ function LinearRegression() {
 
   }
   function handleApi() {
-    axios.get("http://localhost:3000/api/linear")
+    axios.get("http://localhost:3000/api/linear_regression")
       .then((res) => {
           setData(res.data);
           setSize(res.data.length);

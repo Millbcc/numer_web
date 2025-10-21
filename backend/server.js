@@ -1,36 +1,32 @@
-const express = require("express")
-const mysql = require("mysql2")
-const cors = require("cors")
+import express from "express";
+import mysql from "mysql2";
+import cors from "cors";
 
-const app = express()
-app.use(express.json())
-app.use(cors())
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user:"root",
-    password: "123456",
-    database: "numerapi"
-})
-
-db.connect(()=>{
-    console.log("MySQL Connect");
-})
-
-app.get("/api/linear", (req, res) => {
-  db.query("SELECT * FROM linear_regression", (err, result) => {
-    if (err) return res.status(500).json({ error: err });
-    res.json(result);
-  });
+  host: process.env.DB_HOST || "mysql-db",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "root",
+  database: process.env.DB_DATABASE || "numerapi"
 });
 
-
 app.get("/api/bisection", (req, res) => {
-  db.query("SELECT * FROM bisection_method", (err, result) => {
-    if (err) return res.status(500).json({ error: err });
+  db.query("SELECT * FROM bisection_data", (err, result) => {
+    if (err) return res.status(500).send(err);
     res.json(result[0]);
   });
 });
 
+app.get("/api/linear_regression", (req, res) => {
+  db.query("SELECT * FROM linear_data", (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json(result);
+  });
+});
 
-app.listen(3000,()=>console.log("server start"))
+app.listen(3000, () => {
+  console.log("Backend running on http://localhost:3000");
+});
