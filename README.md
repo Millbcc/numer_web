@@ -4,22 +4,29 @@ CREATE DATABASE numerapi;
 
 USE numerapi;
 
-CREATE TABLE data_points(
-  solution VARCHAR(50),
+CREATE TABLE linear_regression (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   x FLOAT,
-  y FLOAT,
-  equation VARCHAR(50),
+  y FLOAT
+);
+
+INSERT INTO linear_regression (x, y) VALUES
+(1, 2),
+(2, 5),
+(3, 8),
+(4, 10),
+(5, 9);
+
+
+CREATE TABLE bisection_method (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  equation VARCHAR(100),
   xl FLOAT,
   xr FLOAT,
   epsilon FLOAT
 );
 
-INSERT INTO data_points(solution,x,y) VALUES
-('lr',1,2),
-('lr',2,5),
-('lr',3,8),
-('lr',4,10),
-('lr',5,9);
+INSERT INTO bisection_method (equation, xl, xr, epsilon)
+VALUES ('x^4 - 13', 0, 8, 0.000001);
 
-INSERT INTO data_points(solution,equation,xl,xr,epsilon) VALUES
-('bs','x^4-13',0,8,0.000001);
+

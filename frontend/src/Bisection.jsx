@@ -39,22 +39,19 @@ function Bisection() {
         return data;
     }
     function handleApi() {
-        axios.get("http://localhost:3000/api/data")
+        axios.get("http://localhost:3000/api/bisection")
             .then((res) => {
-            res.data.forEach((item) => {
-                if (item.solution === 'bs') {
-                console.log(item);
-                setEquation(item.equation);
-                setXl(item.xl);
-                setXr(item.xr);
-                setEpsilon(item.epsilon);
-                }
-            });
+                setEquation(res.data.equation);
+                setXl(res.data.xl);
+                setXr(res.data.xr);
+                setEpsilon(res.data.epsilon);
+                console.log(res.data);
             })
             .catch((err) => {
-            console.error(err);
-        });
+                console.error(err);
+            });
     }
+
     return(
         <div>
             <input
