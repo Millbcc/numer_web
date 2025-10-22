@@ -1,16 +1,18 @@
 import express from "express";
 import mysql from "mysql2";
 import cors from "cors";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST ,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "123456",
+  database: process.env.DB_DATABASE || "numerapi"
 });
 
 app.get("/api/bisection", (req, res) => {
