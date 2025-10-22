@@ -7,10 +7,10 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "mysql-db",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "root",
-  database: process.env.DB_DATABASE || "numerapi"
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 app.get("/api/bisection", (req, res) => {
