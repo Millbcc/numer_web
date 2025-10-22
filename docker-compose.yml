@@ -6,8 +6,8 @@ services:
     container_name: mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: numerapi
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
     volumes:
@@ -22,10 +22,10 @@ services:
     depends_on:
       - mysql-db
     environment:
-      DB_HOST: mysql-db
-      DB_USER: root
-      DB_PASSWORD: root
-      DB_DATABASE: numerapi
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
 
   frontend:
     build: ./frontend
@@ -35,4 +35,3 @@ services:
       - "5173:80"
     depends_on:
       - backend
-  
