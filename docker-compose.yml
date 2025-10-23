@@ -1,37 +1,38 @@
 version: "3.8"
 
 services:
-  mysql-db:
-    image: mysql:8.0
-    container_name: mysql-db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    mysql-db:
+      image: mysql:8.0
+      container_name: mysql-db
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+      ports:
+        - "3307:3306"
+      volumes:
+        - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+ 
 
-  backend:
-    build: ./backend
-    container_name: backend
-    restart: always
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mysql-db
-    environment:
-      DB_HOST: ${DB_HOST}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_DATABASE: ${DB_DATABASE}
+    backend:
+      build: ./backend
+      container_name: backend
+      restart: always
+      ports:
+        - "3000:3000"
+      depends_on:
+        - mysql-db
+      environment:
+        DB_HOST: ${DB_HOST}
+        DB_USER: ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_DATABASE: ${DB_DATABASE}
 
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    restart: always
-    ports:
-      - "5173:80"
-    depends_on:
-      - backend
+    frontend:
+      build: ./frontend
+      container_name: frontend
+      restart: always
+      ports:
+        - "5173:80"
+      depends_on:
+        - backend
